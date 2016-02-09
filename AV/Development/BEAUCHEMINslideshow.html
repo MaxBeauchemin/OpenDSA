@@ -16,7 +16,7 @@
     </style>
   </head>
   <body>
-    <h1>Array Scrambline Demonstration</h1>
+    <h1>Array Scrambling Demonstration</h1>
   <div id="container">
     <div class="jsavcontrols"></div><span class="jsavcounter"></span>
     <p class="jsavoutput jsavline"></p>
@@ -34,23 +34,27 @@
     var av = new JSAV("container");
     var theArray = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
     var arr = av.ds.array(theArray, {indexed: true});
-    av.umsg("Text before displayInit()");
+    av.umsg("Initial Array");
     // Note: av.displayInit() will not affect the number of slides.
     // All that it will do is affect what you get to see on the
     // initial slide.
     av.displayInit();
-    // We are now starting a new slide (#2)
-    av.umsg("... and text after displayInit()", {preserve: true});
-    av.step();
 
-    //added in by Max
-    theArray = [10, 0, 20, 30, 40, 50, 60, 70, 80, 90]
-    arr = av.ds.array(theArray, {indexed: true});
+    var currentIndex = theArray.length;
 
+    av.umsg("Scrambling In Progress")
+
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        arr.swap(currentIndex, randomIndex);
+        av.step();
+    }
 
 
     // We are now starting a new slide (#3)
-    av.umsg("Text after av.step()");
+    av.umsg("Array Shuffled");
     av.recorded();
     // If you add av.umsg after av.recorded, it will add new slides in
     // ways that you probably do not expect and probably cannot
